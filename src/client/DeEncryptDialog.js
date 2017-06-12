@@ -23,11 +23,6 @@ class DeEncryptDialog extends React.Component {
     this.setState({ input: event });
   }
 
-  // handleDecryptDialog(){
-  //   this.props.toggle;
-  //   this.props.decrypt(this.state.input)
-  // }
-
   handleDialog() {
     const actions = [
       { label: 'Close', onClick: this.props.toggle },

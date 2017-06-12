@@ -31,12 +31,9 @@ exports.decryptMessage = (urlHash, encryptedMessage) =>
       if (expirations[urlHash].getMonth() >= month) {
         if (expirations[urlHash].getDate() >= day) {
           // valid date, continue with decryption
-          // console.log('valid message to read', urlHash)
           const decodedMessage = Buffer.from(encryptedMessage, 'base64').toString('ascii');
           // check if the urlHash is valid, if not return error message to client
           try {
-            console.log('valid urlHash to read', urlHash, 'decoded message', decodedMessage)
-            // console.log('my mesage:',typeof sjcl.decrypt(urlHash, decodedMessage));
             return resolve(sjcl.decrypt(urlHash, decodedMessage));
           } catch (e) {
             return reject('Invalid encrypted message');

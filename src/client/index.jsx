@@ -2,8 +2,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import DeEncryptDialog from './DeEncryptDialog';
-import { genPassPhrase } from './../engima-helper';
 // react-toolbox
 import {
   Avatar,
@@ -13,6 +11,8 @@ import {
   DatePicker,
   Input,
 } from 'react-toolbox/lib';
+import DeEncryptDialog from './DeEncryptDialog';
+import { genPassPhrase } from './../engima-helper';
 
 const minDate = new Date();
 
@@ -92,22 +92,21 @@ class Main extends React.Component {
   }
 
   displayDecryptedMessage(message) {
-    if (typeof message !== 'String') {
-      message = 'Invalid/Expired message';
+    let msg = message;
+    if (typeof message !== 'string') {
+      msg = 'Invalid/Expired message';
     }
     this.setState({
-      message,
+      message: msg,
     });
   }
 
   handleDecrypt(encryptedMessage) {
-    console.log('fn called');
     axios.post('/decrypt', {
       urlHash: this.state.passphrase,
       encryptedMessage,
     })
       .then((response) => {
-        console.log('response from server', JSON.stringify(response.data));
         this.displayDecryptedMessage(response.data);
       })
       .catch(err => console.log(err));
